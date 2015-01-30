@@ -9,7 +9,9 @@ var express = require('express'),
 var app = express()
 
 function compile(str, path){
-	return stylus(str).set('filename', path).use(nib())
+	return stylus(str)
+		.set('filename', path)
+		.use(nib())
 }
 
 app.set('views', __dirname + '/views')
@@ -21,6 +23,8 @@ app.use(stylus.middleware(
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function (req, res) {
-	res.end('Hi there!')
+	res.render('index',
+	{ title : 'Home' }
+	)
 })
 app.listen(3000)
